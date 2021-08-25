@@ -41,7 +41,7 @@ public class simpleGetRequest {
         Then response status code is 200
         And response body should be json format
      */
-    @Test
+    @Test (invocationCount = 3)
        public void viewStudentsTest3() {
 
         Response response = RestAssured.given().accept(ContentType.JSON)

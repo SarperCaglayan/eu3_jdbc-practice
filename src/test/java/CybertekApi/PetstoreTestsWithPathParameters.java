@@ -10,21 +10,22 @@ import org.testng.annotations.Test;
 public class PetstoreTestsWithPathParameters {
     @BeforeClass
     public void setUpClass(){
+
         RestAssured.baseURI= "https://petstore.swagger.io/v2";
     }
 
 
     @Test
-    public void pathTest1(){
+    public void pathQueryTest1(){
 
         Response response = RestAssured.given().accept(ContentType.JSON)
-                .and().pathParam("id", "93678")
+                .and().pathParam("id", "9")
                // .and().pathParam("name","Bela")
                 .when().get("/pet/{id}");
 
         assertEquals(response.statusCode(),200);
         assertEquals(response.contentType(),"application/json");
-        assertTrue(response.body().asString().contains("Bela"));
+        assertTrue(response.body().asString().contains("King Kong"));
 
         System.out.println("response.body().prettyPrint() = " + response.body().prettyPrint());
 
@@ -32,7 +33,7 @@ public class PetstoreTestsWithPathParameters {
     }
 
     @Test
-    public void pathTest2(){
+    public void pathQueryTest2(){
         Response response = RestAssured.given().accept(ContentType.JSON)
                 .pathParam("id","0")
                 .when().get("/pet/{id}");
@@ -42,6 +43,9 @@ public class PetstoreTestsWithPathParameters {
 
         assertTrue(response.body().asString().contains("Pet not found"));
 
-        System.out.println("response.body().prettyPrint() = " + response.body().prettyPrint());
+        System.out.println( "response.body().prettyPrint() = " + response.body().prettyPrint());
+
+      //  System.out.println("Id:" +"response.body().path(\"id\") = " + response.body().path("id").toString());
     }
+
 }

@@ -32,11 +32,11 @@ public class StudentsQueryParam {
 
         Response response = given().accept(ContentType.JSON)
                 .queryParam("companyName", "Cybertek")
-                .pathParam("batch", "14")
+                .queryParam("batch", "14")
                 .when().get("http://api.cybertektraining.com/student/all");
 
         assertEquals(response.statusCode(),200);
-        assertTrue(Boolean.parseBoolean(response.contentType()),"application/json;charset=UTF-8");
+        assertEquals(response.contentType(),"application/json;charset=UTF-8");
 
         assertTrue(response.body().asString().contains("Vera"));
 
