@@ -26,7 +26,7 @@ public class PetstoreTestsWithPathParameters {
          */
 
     @Test
-    public void pathQueryTest1(){
+    public void pathParamTest1(){
 
         Response response = RestAssured.given().accept(ContentType.JSON)
                 .and().pathParam("id", "100")
