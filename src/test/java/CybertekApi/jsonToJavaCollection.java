@@ -12,7 +12,7 @@ import java.util.Map;
 import  static org.hamcrest.Matchers.*;
 
 import static io.restassured.RestAssured.*;
-public class jsonToJavaCoolection {
+public class jsonToJavaCollection {
 
     @BeforeClass
     public void beforeClass(){
