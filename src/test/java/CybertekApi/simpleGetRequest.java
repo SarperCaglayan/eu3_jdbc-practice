@@ -52,4 +52,14 @@ public class simpleGetRequest {
 
 
     }
+    @Test
+    public void viewTeachers(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().get("http://api.cybertektraining.com/teacher/all");
+
+        Assert.assertEquals(response.statusCode(), 200);
+        Assert.assertEquals(response.contentType(), "application/json;charset=UTF-8");
+
+        System.out.println("response.body().prettyPrint() = " + response.body().prettyPrint());
+    }
 }

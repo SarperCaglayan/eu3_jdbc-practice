@@ -1,4 +1,4 @@
-package CybertekApi;
+package PetstoreApi;
 
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -26,7 +26,8 @@ public class PetstoreWithJsonPathMethod {
         System.out.println("JsonData.getList(\"id\") = " + JsonData.getList("id").size());
         System.out.println("JsonData.getString(\"name\") = " + JsonData.getString("name"));
 
-        System.out.println("First pet name " + JsonData.getString("name[0]"));
+        System.out.println("First pet name = " + JsonData.getString("name[0]"));
+        System.out.println("Second pet name = " + JsonData.getString("name[1]"));
         System.out.println("Last pet name = " + JsonData.getString("name[-1]"));
 
         int id1= JsonData.getInt("id[0]");

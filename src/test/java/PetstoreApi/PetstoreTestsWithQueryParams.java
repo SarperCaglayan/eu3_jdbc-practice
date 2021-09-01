@@ -1,4 +1,4 @@
-package CybertekApi;
+package PetstoreApi;
 
 import static io.restassured.RestAssured.*;
 

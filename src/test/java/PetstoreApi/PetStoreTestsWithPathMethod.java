@@ -1,4 +1,4 @@
-package CybertekApi;
+package PetstoreApi;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -12,7 +12,7 @@ import java.util.Set;
 public class PetStoreTestsWithPathMethod {
     @BeforeClass
     public void setUpClass(){
-    RestAssured.baseURI="https://petstore.swagger.io/v2";
+        RestAssured.baseURI="https://petstore.swagger.io/v2";
 }
     @Test
     public void PathMethodforPetstore(){
@@ -34,9 +34,11 @@ public class PetStoreTestsWithPathMethod {
         Set<Object> onlyNames= new HashSet<>(namesOfSoldPets);
         System.out.println("onlyNames = " + onlyNames);
 
+        int count=0;
+        System.out.println("Sold pets :");
         for( Object petNames : onlyNames){
-
-            System.out.println(petNames);
+            count++;
+            System.out.println( count + ")" + petNames);
 
         }
 
