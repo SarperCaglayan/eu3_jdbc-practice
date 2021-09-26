@@ -178,6 +178,7 @@ public class PostStudents {
         //company.setCompanyId(12345);
         company.setCompanyName("SYS");
         company.setTitle("title");
+        company.setStartDate(" ");
 
         Address address= new Address();
         company.setAddress(address);
@@ -186,27 +187,27 @@ public class PostStudents {
         address.setZipCode(1);
         address.setStreet("Main Boulevard");
 
-        Map<String,Object> companyMap= new HashMap<>();
-        companyMap.put("company", " ");
-
         Contact contact=new Contact();
         studentX.setContact(contact);
         contact.setPhone("1234233333");
         contact.setEmailAddress("email@emailaddress.com");
         contact.setPremanentAddress("lobby");
-        company.setStartDate(" ");
 
 
-        given().accept(ContentType.JSON).and().contentType(ContentType.JSON).
-                        and().body(studentX).
-                        when().post("student/create").
-                then().
-                statusCode(200).
-                and().contentType(ContentType.JSON).and()
-                .body("firstName", equalTo("ClaraPojo"),
+
+        given().log().all().accept(ContentType.JSON).and().contentType(ContentType.JSON)
+                .and()
+                        .body(studentX)
+                .when().log().all()
+                        .post("student/create")
+                .then()
+                        .statusCode(200)
+                .and()
+                        .contentType(ContentType.JSON)
+                .and()
+                        .body("firstName", equalTo("ClaraPojo"),
                         "lastName", equalTo("Coly"),
-                        "batch", equalTo( 15))
-                .log().all();
+                        "batch", equalTo( 15));
 
 
     }
