@@ -18,6 +18,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import static org.hamcrest.Matchers.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +51,7 @@ public class PostStudents {
                         "  },\n" +
                         "  \"contact\": {\n" +
                         "    \"contactId\": 0,\n" +
-                        "    \"emailAddress\": \"colybaly@cybertek.com\",\n" +
+                        "    \"emailAddress\": \"colybaly@colybalyfamily.com\",\n" +
                         "    \"phone\": 1234123456,\n" +
                         "    \"premanentAddress\": \"string\"\n" +
                         "  },\n" +
@@ -73,38 +74,74 @@ public class PostStudents {
 
         assertEquals(response.path("firstName"), "Clara");
 
+        //assertion with JsonPath
         JsonPath jsonbody= response.jsonPath();
         assertEquals(jsonbody.getString("lastName"), "Colybaly");
         assertEquals(jsonbody.getLong("contact.phone"),1234123456 );
         assertEquals(jsonbody.getString("contact.emailAddress"), "colybaly@colybalyfamily.com");
+
+        // after post request, I sent a get request by using dynamic id(studenttId) with queryparam
+        int id= response.path("studentId");
+
+        given().accept(ContentType.JSON)
+                .pathParam("id", id)
+                .when().get("student/{id}")
+                .then().statusCode(200)
+                .and().contentType("application/json").log().all();
+
+
+
     }
 
     @Test
     public void postMethodWithMap(){
 
-        Map<String, Object> jsonMap= new HashMap<>();
+        HashMap<String, Object> jsonMap= new HashMap<String,Object>();
         jsonMap.put("firstName", "ClaraMap");
         jsonMap.put("lastName", "ColybalyMap");
-        jsonMap.put("contact.phone", 1466123456);
-        //jsonMap.put("company", );
+        jsonMap.put("batch", 15);
+        jsonMap.put("joinDate", "11/11/1990");
+        jsonMap.put("birthDate", "12/23/2010");
+        jsonMap.put("password", "string");
+        jsonMap.put("subject", "string");
+        jsonMap.put("gender", "string");
+        jsonMap.put("admissionNo", "123");
+        jsonMap.put("major", "string");
+        jsonMap.put("section", "string");
 
-/*        jsonMap.put("company.companyId", 1234);
-        jsonMap.put("company.companyName", "SYS");
-        jsonMap.put("company.startDate", "today");
-        jsonMap.put("company.title", "SDET");
+        ArrayList<Map<String,Object>> studentsList= new ArrayList<>();
 
-*/
+        //jsonMap.put("students", studentsList);
+        studentsList.add(jsonMap);
+        HashMap<String, Object> companyMap= new HashMap<String,Object>();
+        jsonMap.put("company",companyMap);
+        //companyMap.put("companyId", 1234);
+        companyMap.put("companyName", "SYS");
+        companyMap.put("title", "SDET");
+        companyMap.put("startDate", "today");
 
-        jsonMap.put("company", "{\n ");
+        HashMap<String, Object> addressMap= new HashMap<String,Object>();
+        companyMap.put("address", addressMap);
+        addressMap.put("city","Tysons");
+        addressMap.put("state","VA");
+        addressMap.put("zipCode",1);
+        addressMap.put("street","Main Boulevard");
 
-        given().accept(ContentType.JSON).and().contentType(ContentType.JSON).
-                and().body(jsonMap).
-                when().post("student/create").then().
+        HashMap<String, Object> contactMap= new HashMap<String,Object>();
+        jsonMap.put("contact", contactMap);
+        contactMap.put("phone", "1234233333");
+        contactMap.put("emailAddress", "email@emailaddress.com");
+        contactMap.put("premanentAddress", "lobby");
+
+        System.out.println(studentsList.toString());
+
+        given().accept(ContentType.JSON).and().contentType(ContentType.JSON)
+                .and().body(jsonMap)
+        .when().post("student/create")
+                .then().
                 statusCode(200).
                 and().contentType(ContentType.JSON);
-        ;
-
- //       System.out.println("response.prettyPrint() = " + response.prettyPrint());
+        //       System.out.println("response.prettyPrint() = " + response.prettyPrint());
     }
 
     @Test
@@ -210,5 +247,7 @@ public class PostStudents {
                         "batch", equalTo( 15));
 
 
+
     }
+
 }

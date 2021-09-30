@@ -39,7 +39,7 @@ public class HamcrestMatchersApiTest {
                 .when().log().all().get("http://api.cybertektraining.com/teacher/{id}")
                 .then().assertThat().statusCode(200)
                 .and().contentType(equalTo("application/json;charset=UTF-8"))
-                .and().header("Content-Length",equalTo("236"))
+                //.and().header("Content-Length",equalTo("236"))
                 .and().header("Connection",equalTo("Keep-Alive"))
                 .and().header("Date",notNullValue())
                 .and().assertThat().body("teachers.firstName[0]",equalTo("Alexander"),

@@ -18,7 +18,7 @@ public class PetStoreTestsWithPathMethod {
     public void PathMethodforPetstore(){
 
         Response response = RestAssured.get("pet/findByStatus?status=sold");
-        // System.out.println("response.body().prettyPrint() = " + response.body().prettyPrint());
+        System.out.println("response.body().prettyPrint() = " + response.body().prettyPrint());
 
         int firstId= response.path("id[0]");
         System.out.println("firstId = " + firstId);

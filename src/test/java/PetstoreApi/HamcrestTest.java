@@ -46,7 +46,7 @@ public class HamcrestTest {
                     .then().assertThat().statusCode(200)
                     .and().contentType("application/json")
                     .and().header("Transfer-Encoding", equalTo("chunked"))
-                            .and().assertThat().body("id", hasItems(9223372000666081598L,33377689,9, 12 ),
+                            .and().assertThat().body("id", hasItems(10001,6479003,97,7574746),
                                     "name", hasItems("Hardy", "doggie" ))
                     .log().all();
 
